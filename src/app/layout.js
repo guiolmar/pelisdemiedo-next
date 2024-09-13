@@ -2,6 +2,7 @@ import localFont from "next/font/local";
 import ClientLayout from "@/components/ClientLayout"; // Importamos el layout para cliente
 import "./globals.css";
 import { GoogleAnalytics } from '@next/third-parties/google'
+import { Analytics } from "@vercel/analytics/react"
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -45,6 +46,7 @@ export default function RootLayout({ children }) {
         </ClientLayout>
       </body>
       <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
+      <Analytics />
     </html>
   );
 }
