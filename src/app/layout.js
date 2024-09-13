@@ -15,7 +15,7 @@ const geistMono = localFont({
 });
 
 export const metadata = {
-  title: "PelisDeMiedo.com",
+  title: "Pelis de Miedo | Las Mejores Películas y Series de Terror",
   description: "Descubre las mejores películas de terror y series de miedo en PelisDeMiedo.com. ¡Todo el terror en un solo lugar!",
   keywords: "películas de miedo, terror, series de terror, películas de terror, pelisdemiedo.com",
   openGraph: {
