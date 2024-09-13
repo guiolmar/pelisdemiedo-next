@@ -39,7 +39,7 @@ export const MovieCard = ({ movie }) => {
               // Si existe poster_path, mostrar la imagen, de lo contrario, mostrar una imagen por defecto (imagen no disponible)
                 src={movie.poster_path ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}` : "/assets/home-bg-search.jpg"}
                 alt={movie.title}
-                className="w-full h-[300px] object-cover rounded-t-lg"
+                className="w-full h-[300px] object-cover"
               />
               <CardContent className="p-4">
                 <h3 className="font-semibold text-sm mb-2 whitespace-normal">{movie.title}</h3>
