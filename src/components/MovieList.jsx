@@ -35,7 +35,7 @@ export const MovieList = ({ movie, badge }) => {
 
             <div className="flex items-center gap-2 mt-1">
               {badge && (
-                <Badge variant="secondary" className="bg-primary text-primary-foreground text-xs">
+                <Badge variant="secondary" className="bg-primary text-primary-foreground text-xs hover:bg-white hover:text-black">
                   {mediaLabel}
                 </Badge>
               )}
