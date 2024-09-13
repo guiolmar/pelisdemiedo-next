@@ -1,8 +1,9 @@
 import localFont from "next/font/local";
-import ClientLayout from "@/components/ClientLayout"; // Importamos el layout para cliente
+import ClientLayout from "@/components/ClientLayout";
 import "./globals.css";
-import { GoogleAnalytics } from '@next/third-parties/google'
-import { Analytics } from "@vercel/analytics/react"
+import { GoogleAnalytics } from '@next/third-parties/google';
+import { Analytics } from "@vercel/analytics/react";
+import Script from "next/script"; // Importamos el componente Script
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -31,9 +32,9 @@ export const metadata = {
     ],
   },
   icons: {
-    icon: '/assets/favicon.png',  // Ruta del favicon en tu carpeta public
+    icon: '/assets/favicon.png',
     shortcut: '/assets/favicon.png',
-    apple: '/assets/favicon.png',  // Opcional, para dispositivos Apple
+    apple: '/assets/favicon.png',
   },
 };
 
@@ -44,6 +45,14 @@ export default function RootLayout({ children }) {
         <ClientLayout>
           {children}
         </ClientLayout>
+
+        {/* Insertamos el script de anuncios de Google */}
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6953675843315572"
+          crossorigin="anonymous"
+        />
+
       </body>
       <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
       <Analytics />
