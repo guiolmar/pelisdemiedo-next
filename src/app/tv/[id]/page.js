@@ -1,22 +1,20 @@
 import axios from 'axios';
-import ClientMoviePage from './ClientMoviePage';
-import ErrorPage from '@/components/ErrorPage'; // Importa el componente de error
-import SkeletonMoviePage from '@/components/SkeletonMoviePage'; // Importa el componente Skeleton
+import ClientTVPage from './ClientTVPage';
+import ErrorPage from '@/components/ErrorPage'; // Página de error
+import SkeletonTVPage from '@/components/SkeletonTVPage'; // Skeleton de carga
 
 export async function generateMetadata({ params }) {
   const { id } = params;
+  const tvId = id.split('-')[0];
 
-  const movieId = id.split('-')[0];
-
-  // Validar si movieId es un número válido
-  if (isNaN(movieId)) {
+  if (isNaN(tvId)) {
     return {
-      title: "Película no encontrada - PelisDeMiedo.com",
+      title: "Serie no encontrada - PelisDeMiedo.com",
     };
   }
 
   try {
-    const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}`, {
+    const response = await axios.get(`https://api.themoviedb.org/3/tv/${tvId}`, {
       params: {
         language: 'es-ES',
         append_to_response: 'videos,similar,credits',
@@ -26,45 +24,43 @@ export async function generateMetadata({ params }) {
       },
     });
 
-    const movie = response.data;
+    const tvShow = response.data;
 
     return {
-      title: `PelisDeMiedo.com - ${movie.title}`,
-      description: movie.overview,
+      title: `PelisDeMiedo.com - ${tvShow.name}`,
+      description: tvShow.overview,
       openGraph: {
-        title: `PelisDeMiedo.com - ${movie.title}`,
-        description: movie.overview,
+        title: `PelisDeMiedo.com - ${tvShow.name}`,
+        description: tvShow.overview,
         images: [
           {
-            url: `https://image.tmdb.org/t/p/original/${movie.backdrop_path}`,
-            alt: `${movie.title} image`,
+            url: `https://image.tmdb.org/t/p/original/${tvShow.backdrop_path}`,
+            alt: `${tvShow.name} image`,
           },
         ],
-        url: `https://pelisdemiedo.com/movie/${movie.id}-${movie.title.toLowerCase().replace(/\s+/g, '-')}`,
+        url: `https://pelisdemiedo.com/tv/${tvShow.id}-${tvShow.name.toLowerCase().replace(/\s+/g, '-')}`,
       },
     };
   } catch (error) {
-    console.error('Error fetching movie:', error);
+    console.error('Error fetching tv show:', error);
     return {
-      title: "Película no encontrada - PelisDeMiedo.com",
+      title: "Serie no encontrada - PelisDeMiedo.com",
     };
   }
 }
 
-export default async function MoviePage({ params }) {
+export default async function TVPage({ params }) {
   const { id } = params;
-  const movieId = id.split('-')[0];
+  const tvId = id.split('-')[0];
 
-  // Validar si movieId es un número válido
-  if (isNaN(movieId)) {
+  if (isNaN(tvId)) {
     return <ErrorPage message="El ID proporcionado no es válido." />;
   }
 
   try {
-    // Simular un tiempo de carga para mostrar el Skeleton
-    const fetchMovieData = new Promise(async (resolve) => {
+    const fetchTVShowData = new Promise(async (resolve) => {
       setTimeout(async () => {
-        const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}`, {
+        const response = await axios.get(`https://api.themoviedb.org/3/tv/${tvId}`, {
           params: {
             language: 'es-ES',
             append_to_response: 'videos,similar,credits',
@@ -74,19 +70,18 @@ export default async function MoviePage({ params }) {
           },
         });
         resolve(response.data);
-      }, 1000); // Simulación de un retraso de 1 segundo
+      }, 1000);
     });
 
-    const movie = await fetchMovieData;
-    const cast = movie.credits.cast.slice(0, 20);
+    const tvShow = await fetchTVShowData;
+    const cast = tvShow.credits.cast.slice(0, 20);
 
-    // Una vez que los datos se carguen, renderizamos la página de la película
-    return <ClientMoviePage movie={movie} cast={cast} />;
+    return <ClientTVPage tvShow={tvShow} cast={cast} />;
   } catch (error) {
-    console.error('Error fetching movie:', error);
-    return <ErrorPage message="No se encontró la película solicitada." />;
+    console.error('Error fetching tv show:', error);
+    return <ErrorPage message="No se encontró la serie solicitada." />;
   }
 }
 
-// Añadimos SkeletoMoviePage para mostrarlo antes de que los datos se carguen
-export const loading = () => <SkeletonMoviePage />;
+// Añadimos SkeletonTVPage para mostrarlo antes de que los datos se carguen
+export const loading = () => <SkeletonTVPage />;
