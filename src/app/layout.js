@@ -1,7 +1,7 @@
-import Script from 'next/script';  // Importa el componente Script de Next.js
 import localFont from "next/font/local";
 import ClientLayout from "@/components/ClientLayout"; // Importamos el layout para cliente
 import "./globals.css";
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -39,33 +39,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="es">
-      <head>
-        {/* Google Analytics - Solo en producción */}
-        {process.env.NODE_ENV === 'production' && (
-          <>
-            {/* Inyectar el script de Google Tag Manager */}
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
-              strategy="afterInteractive"
-            />
-            {/* Script para inicializar GA */}
-            <Script id="google-analytics" strategy="afterInteractive">
-              {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-
-                gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');
-              `}
-            </Script>
-          </>
-        )}
-      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ClientLayout>
           {children}
         </ClientLayout>
       </body>
+      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
     </html>
   );
 }
