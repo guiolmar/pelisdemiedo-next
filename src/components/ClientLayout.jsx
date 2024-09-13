@@ -25,7 +25,7 @@ export default function ClientLayout({ children }) {
   }, []);
 
   return (
-    <ThemeProvider defaultTheme="dark" attribute="class">
+    <ThemeProvider defaultTheme="dark" attribute="class" enableSystem={false}>
       <div className="flex min-h-screen w-full flex-col">
         <header
           className={`sticky top-0 flex h-16 items-center gap-4 border-b bg-white px-4 md:px-6 transition-shadow dark:bg-black ${
