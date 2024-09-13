@@ -4,6 +4,7 @@ export default async function handler(req, res) {
   const API_KEY = process.env.TMDB_API_KEY; // Usamos la clave API desde las variables de entorno
 
   const { query, type } = req.query; // Obtenemos los parámetros de la solicitud
+  console.log(req.query)
 
   // Normalizar los parámetros que llegan como query[]
   const normalizedQuery = {};

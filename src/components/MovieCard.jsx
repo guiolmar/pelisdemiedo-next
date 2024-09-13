@@ -6,24 +6,31 @@ import { Star, Calendar } from "lucide-react";
 import moment from "moment";
 import 'moment/dist/locale/es';
 
-export const MovieCard = ({ movie }) => {
+export const MovieCard = ({ movie, badge }) => {
   moment.locale('es');
-  const [isPopoverOpen, setIsPopoverOpen] = useState(false); // Estado para manejar si se abre el popover
-  const [hoverTimeout, setHoverTimeout] = useState(null); // Guardar el timeout
-  
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const [hoverTimeout, setHoverTimeout] = useState(null);
+
   const handleMouseEnter = () => {
     const timeout = setTimeout(() => {
       setIsPopoverOpen(true);
-    }, 1000); // Espera 1 segundo antes de abrir el popover
-    setHoverTimeout(timeout); // Guardar el timeout en el estado
-  };
-  
-  const handleMouseLeave = () => {
-    clearTimeout(hoverTimeout); // Limpiar el timeout si el ratón sale antes de 1 segundo
-    setIsPopoverOpen(false); // Cerrar el popover
+    }, 1000); 
+    setHoverTimeout(timeout);
   };
 
-  const encodedTitle = encodeURIComponent(movie.original_title.toLowerCase().replace(/\s+/g, '-'));
+  const handleMouseLeave = () => {
+    clearTimeout(hoverTimeout);
+    setIsPopoverOpen(false);
+  };
+
+  const title = movie.media_type === "movie" ? movie.title : movie.name;
+  const releaseDate = movie.media_type === "movie" ? movie.release_date : movie.first_air_date;
+  const originalTitle = movie.media_type === "movie" ? movie.original_title : movie.original_name;
+  const safeTitle = originalTitle || title || '';
+  const encodedTitle = encodeURIComponent(safeTitle.toLowerCase().replace(/\s+/g, '-'));
+
+  // Definimos el tipo de etiqueta para "película" o "serie"
+  const mediaLabel = movie.media_type === "movie" ? "Película" : "Serie";
 
   return (
     <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
@@ -31,18 +38,24 @@ export const MovieCard = ({ movie }) => {
         <div
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
-          className="w-[200px] overflow-hidden cursor-pointer hover:shadow-lg"
+          className="relative w-[200px] overflow-hidden cursor-pointer hover:shadow-lg"
         >
-          <Link href={`/movie/${movie.id}-${encodedTitle}`}>
+          {/* Etiqueta que indica si es una película o serie */}
+          {badge && (
+          <span className="absolute top-2 left-2 bg-blue-600 text-white text-xs font-semibold px-2 py-1 rounded-md z-10">
+            {mediaLabel}
+          </span>
+        )}
+          
+          <Link href={`/${movie.media_type}/${movie.id}-${encodedTitle}`}>
             <Card>
               <img
-              // Si existe poster_path, mostrar la imagen, de lo contrario, mostrar una imagen por defecto (imagen no disponible)
                 src={movie.poster_path ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}` : "/assets/home-bg-search.jpg"}
-                alt={movie.title}
+                alt={title}
                 className="w-full h-[300px] object-cover"
               />
               <CardContent className="p-4">
-                <h3 className="font-semibold text-sm mb-2 whitespace-normal">{movie.title}</h3>
+                <h3 className="font-semibold text-sm mb-2 whitespace-normal">{title}</h3>
                 <div className="flex justify-between items-center text-sm text-gray-500">
                   <span className="flex items-center">
                     <Star className="w-4 h-4 mr-1 text-yellow-400" />
@@ -50,7 +63,7 @@ export const MovieCard = ({ movie }) => {
                   </span>
                   <span className="flex items-center">
                     <Calendar className="w-4 h-4 mr-1" />
-                    {moment(movie.release_date).format("L")}
+                    {moment(releaseDate).format("L")}
                   </span>
                 </div>
               </CardContent>
@@ -59,23 +72,22 @@ export const MovieCard = ({ movie }) => {
         </div>
       </PopoverTrigger>
       <PopoverContent className="w-[300px] relative p-0">
-        {/* Imagen de fondo */}
         <div className="absolute inset-0 bg-cover bg-center rounded-lg"
           style={{
-            backgroundImage: `url(https://image.tmdb.org/t/p/w1280/${movie.backdrop_path})`,
-            opacity: 0.3,  // Opacidad reducida para la imagen de fondo
-            zIndex: 0,     // Mantiene la imagen detrás del contenido
+            backgroundImage: `url(${movie.backdrop_path ? `https://image.tmdb.org/t/p/w1280/${movie.backdrop_path}` : '/assets/home-bg-search.jpg'})`,
+            opacity: 0.3,
+            zIndex: 0,
           }}
         />
-
-        {/* Contenido encima de la imagen */}
         <div className="relative z-10 p-4 text-white">
-          <h4 className="text-lg font-semibold">{movie.title}</h4>
-          <p className="text-sm">Fecha de lanzamiento: {moment(movie.release_date).format("LL")}</p>
-          <p className="text-sm mt-2 flex items-center">Calificación: {Math.round(movie.vote_average * 10) / 10}
+          <h4 className="text-lg font-semibold">{title}</h4>
+          <p className="text-sm">
+            Fecha de lanzamiento: {moment(releaseDate).format("LL")}
+          </p>
+          <p className="text-sm mt-2 flex items-center">
+            Calificación: {Math.round(movie.vote_average * 10) / 10}
             <Star className="w-4 h-4 ml-1 text-yellow-400" />
           </p>
-          {/* movie.overview tiene que ser truncado a 100 caracteres */}
           <p className="text-sm mt-2">{movie.overview.length > 100 ? `${movie.overview.substring(0, 100)}...` : movie.overview}</p>
         </div>
       </PopoverContent>

@@ -2,16 +2,26 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link"; // Cambiamos a next/link
-import { Skull, Menu, Search } from "lucide-react";
+import { Skull, Menu, Search, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Input } from "@/components/ui/input";
 import { ThemeProvider, useTheme } from "next-themes";
+import { useRouter } from 'next/navigation';
 
 export default function ClientLayout({ children }) {
   const [scrollY, setScrollY] = useState(0);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const { theme, setTheme } = useTheme();
+  const router = useRouter();
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
+    }
+  };
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -53,7 +63,7 @@ export default function ClientLayout({ children }) {
                 Series
               </Link>
             </nav>
-            <Sheet onOpenChange={setIsSidebarOpen}>
+            {/* <Sheet onOpenChange={setIsSidebarOpen}>
               <SheetTrigger asChild>
                 <Button variant="outline" size="icon" className="shrink-0 md:hidden">
                   <Menu className="h-5 w-5 text-white" />
@@ -63,23 +73,36 @@ export default function ClientLayout({ children }) {
               <SheetContent side="left" className="bg-black text-white">
                 <nav className="grid gap-6 text-lg font-medium">
                   <Link href="/" className="flex items-center gap-2 text-lg font-semibold">
-                    <Skull className="h-6 w-6 text-white" /> {/* Color rojo para el ícono de cráneo */}
+                    <Skull className="h-6 w-6 text-white" />
                     <span>PelisDeMiedo.com</span>
                   </Link>
-                  <Link href="#" className="hover:text-red-500">Películas</Link> {/* Enlaces que cambian a rojo al pasar el mouse */}
+                  <Link href="#" className="hover:text-red-500">Películas</Link>
                   <Link href="#" className="hover:text-red-500">Series</Link>
                 </nav>
               </SheetContent>
 
-            </Sheet>
+            </Sheet> */}
+            <Link href="/" className="flex items-center gap-2 text-lg font-semibold md:text-base">
+            <Button
+              variant="outline"
+              size="icon"
+              className="shrink-0 md:hidden"
+            >
+              <Skull className="h-5 w-5 text-white" />
+              <span className="sr-only">Toggle navigation menu</span>
+            </Button>
+            </Link>
+
             <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
-              <form className="ml-auto flex-1 sm:flex-initial">
+              <form onSubmit={handleSearchSubmit} className="ml-auto flex-1 sm:flex-initial">
                 <div className="relative">
                   <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
                   <Input
                     type="search"
                     placeholder="Buscar película, serie..."
-                    className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
+                    className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px] text-white text-base"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
                   />
                 </div>
               </form>
