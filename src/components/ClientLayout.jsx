@@ -6,7 +6,7 @@ import { Skull, Menu, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Input } from "@/components/ui/input";
-import { ThemeProvider } from "@/components/theme-provider"; // El proveedor de tema
+import { ThemeProvider } from "next-themes";
 
 export default function ClientLayout({ children }) {
   const [scrollY, setScrollY] = useState(0);
@@ -25,7 +25,7 @@ export default function ClientLayout({ children }) {
   }, []);
 
   return (
-    <ThemeProvider>
+    <ThemeProvider defaultTheme="dark" attribute="class">
       <div className="flex min-h-screen w-full flex-col">
         <header
           className={`sticky top-0 flex h-16 items-center gap-4 border-b bg-white px-4 md:px-6 transition-shadow dark:bg-black ${
