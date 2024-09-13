@@ -116,7 +116,7 @@ export default function ClientMoviePage({ movie, cast }) {
 
       {/* Cast Section */}
       <section>
-        <h2 className="text-2xl font-semibold mb-4">Reparto</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-white">Reparto</h2>
         <ScrollArea className="w-full whitespace-nowrap rounded-md">
           <div className="flex space-x-4 p-4">
             {cast.map((actor) => (
@@ -129,7 +129,7 @@ export default function ClientMoviePage({ movie, cast }) {
 
       {/* Similar Movies Section */}
       <section>
-        <h2 className="text-2xl font-semibold mb-4">Películas similares</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-white">Películas similares</h2>
         <ScrollArea className="w-full whitespace-nowrap rounded-md">
           <div className="flex space-x-4 p-4">
             {movie.similar.results.map((movie) => (

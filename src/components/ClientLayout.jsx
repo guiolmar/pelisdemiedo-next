@@ -6,11 +6,19 @@ import { Skull, Menu, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Input } from "@/components/ui/input";
-import { ThemeProvider } from "next-themes";
+import { ThemeProvider, useTheme } from "next-themes";
 
 export default function ClientLayout({ children }) {
   const [scrollY, setScrollY] = useState(0);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const { theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      document.documentElement.classList.add('dark');
+    }
+  }, []);
+  
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,10 +33,10 @@ export default function ClientLayout({ children }) {
   }, []);
 
   return (
-    <ThemeProvider defaultTheme="dark" attribute="class" enableSystem={false}>
+    <ThemeProvider forcedTheme="dark" attribute="class" enableSystem={false}>
       <div className="flex min-h-screen w-full flex-col">
         <header
-          className={`sticky top-0 flex h-16 items-center gap-4 border-b bg-white px-4 md:px-6 transition-shadow dark:bg-black ${
+          className={`sticky top-0 flex h-16 items-center gap-4 border-b bg-black border-black px-4 md:px-6 transition-shadow dark:bg-black ${
             scrollY > 0 ? "shadow-md" : ""
           } ${isSidebarOpen ? "" : "z-50"}`}
         >
@@ -48,7 +56,7 @@ export default function ClientLayout({ children }) {
             <Sheet onOpenChange={setIsSidebarOpen}>
               <SheetTrigger asChild>
                 <Button variant="outline" size="icon" className="shrink-0 md:hidden">
-                  <Menu className="h-5 w-5" />
+                  <Menu className="h-5 w-5 text-white" />
                   <span className="sr-only">Toggle navigation menu</span>
                 </Button>
               </SheetTrigger>
@@ -78,7 +86,7 @@ export default function ClientLayout({ children }) {
             </div>
           </div>
         </header>
-        <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
+        <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8 bg-[#0A0A0A]">
           <div className="w-full max-w-screen-lg mx-auto">{children}</div>
         </main>
         <footer className="w-full border-t bg-white p-4 dark:bg-black">

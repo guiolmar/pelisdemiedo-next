@@ -84,7 +84,7 @@ export default function Home() {
 
       {/* Películas en tendencia */}
       <section>
-        <h2 className="text-2xl font-semibold mb-4 flex items-center">
+        <h2 className="text-2xl font-semibold mb-4 flex items-center text-white">
           <TrendingUp className="mr-2" /> Películas en Tendencia
         </h2>
         <ScrollArea className="w-full whitespace-nowrap rounded-md">
@@ -107,7 +107,7 @@ export default function Home() {
 
       {/* Películas populares */}
       <section>
-        <h2 className="text-2xl font-semibold mb-4 flex items-center">
+        <h2 className="text-2xl font-semibold mb-4 flex items-center text-white">
           <Star className="mr-2" /> Películas Populares
         </h2>
         <ScrollArea className="w-full whitespace-nowrap rounded-md">
