@@ -120,6 +120,14 @@ export default function ClientLayout({ children }) {
             <p className="text-xs text-muted-foreground">
               Creado con mucho ❤️ por <a target="_blank" href="https://www.linkedin.com/in/guillermoolcina/">@guiolmar</a>
             </p>
+            <p className="text-xs text-muted-foreground mt-2">
+              {/* Icono de github y que diga "Github" con el enlace al repo (https://bhha0khdarsj44ad.public.blob.vercel-storage.com/github-NM0LpuHCKfRpzLHvv0wlYBpJIiUoGB.png) y repo: https://github.com/guiolmar/pelisdemiedo-next */}
+              <a target="_blank" href="https://github.com/guiolmar/pelisdemiedo-next">
+                <img src="https://bhha0khdarsj44ad.public.blob.vercel-storage.com/github-NM0LpuHCKfRpzLHvv0wlYBpJIiUoGB.png" alt="Github" className="w-4 h-4 inline-block" />
+                <span className="ml-1
+              ">Github</span>
+              </a>
+            </p>
           </div>
         </footer>
       </div>

@@ -281,7 +281,7 @@ Contributions are welcome! Here are several ways you can contribute:
 <summary>Contributor Graph</summary>
 <br>
 <p align="left">
-   <a href="https://github.com{/guiolmar/pelisdemiedo-next/}graphs/contributors">
+   <a href="https://github.com/guiolmar/pelisdemiedo-next/contributors">
       <img src="https://contrib.rocks/image?repo=guiolmar/pelisdemiedo-next">
    </a>
 </p>
