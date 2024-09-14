@@ -8,6 +8,7 @@ import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { SkeletonMovieCard } from '@/components/SkeletonMovieCard';
 import { MovieCard } from '@/components/MovieCard';
 import moment from 'moment';
+import 'moment/locale/es';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 

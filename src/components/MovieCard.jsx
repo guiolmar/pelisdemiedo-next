@@ -3,8 +3,8 @@ import { Popover, PopoverTrigger, PopoverContent } from "./ui/popover";
 import Link from "next/link";
 import { Card, CardContent } from "./ui/card";
 import { Star, Calendar } from "lucide-react";
-import moment from "moment";
-import 'moment/dist/locale/es';
+import moment from 'moment';
+import 'moment/locale/es';
 
 export const MovieCard = ({ movie, badge }) => {
   moment.locale('es');

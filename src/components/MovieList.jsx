@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Star, Calendar } from "lucide-react";
-import moment from "moment";
-import 'moment/dist/locale/es';
+import moment from 'moment';
+import 'moment/locale/es';
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 

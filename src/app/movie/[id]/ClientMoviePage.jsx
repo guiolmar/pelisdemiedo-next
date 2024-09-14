@@ -10,9 +10,10 @@ import { MovieCard } from '@/components/MovieCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Calendar, Clock, Users, DollarSign, Globe, Film, TrendingUp } from 'lucide-react';
 import moment from 'moment';
-import 'moment/dist/locale/es';
+import 'moment/locale/es';
 
 export default function ClientMoviePage({ movie, cast }) {
+    moment.locale('es');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [trailerKey, setTrailerKey] = useState(
     movie.videos.results.find(

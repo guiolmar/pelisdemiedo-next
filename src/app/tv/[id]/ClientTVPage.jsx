@@ -10,9 +10,10 @@ import { MovieCard } from '@/components/MovieCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Calendar, Clock, Users, Globe, TrendingUp, Tv } from 'lucide-react'; // Cambié algunos iconos a Tv
 import moment from 'moment';
-import 'moment/dist/locale/es';
+import 'moment/locale/es';
 
 export default function ClientTVPage({ tvShow, cast }) {
+  moment.locale('es');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [trailerKey, setTrailerKey] = useState(
     tvShow.videos.results.find(
