@@ -19,7 +19,7 @@ const geistMono = localFont({
 export const metadata = {
   title: "Pelis de Miedo | Las Mejores Películas y Series de Terror",
   description: "Descubre las mejores películas de terror y series de miedo en PelisDeMiedo.com. ¡Todo el terror en un solo lugar!",
-  keywords: "películas de miedo, terror, series de terror, películas de terror, pelisdemiedo.com",
+  keywords: "películas de miedo, pelis de miedo, mejores peliculas de miedo, cine de terror, series de miedo, películas de terror, estrenos de terror, clásicos del terror, horror psicológico, cine gore, películas sobrenaturales, recomendaciones de terror, terror español, thrillers de terror, series de suspense, pelisdemiedo.com",
   openGraph: {
     title: "PelisDeMiedo.com",
     description: "Las mejores películas de miedo y series de terror. ¡Todo el terror en un solo lugar!",
